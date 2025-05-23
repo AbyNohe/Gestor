@@ -1,16 +1,20 @@
 {
-    "name": "Flutter Development (Manual Setup)",
+    "name": "Flutter Development (Manual Setup V3)",
     "image": "mcr.microsoft.com/devcontainers/universal:latest",
     "features": {
-        "ghcr.com/devcontainers/features/common-utils:2": {},
-        "ghcr.com/devcontainers/features/git:1": {},
-        "ghcr.com/devcontainers/features/github-cli:1": {},
-        "ghcr.com/devcontainers/features/java:1": {
+        // common-utils a veces causa problemas. Lo quitamos si no es critico, o probamos una sintaxis alternativa.
+        // Para maxima compatibilidad, usaremos la version de feature que es mas comúnmente utilizada y mas antigua/estable si no tiene problemas.
+        // o simplemente omitirla si es solo para utilidades menores.
+        // Por ahora, probemos con la universal image que ya trae muchas cosas.
+        // Si esto falla, podemos intentar instalar herramientas directamente en el postCreateCommand en vez de como features.
+        "ghcr.io/devcontainers/features/git:1": {}, // Esto es muy común y no suele fallar
+        "ghcr.io/devcontainers/features/github-cli:1": {}, // También muy común
+        "ghcr.io/devcontainers/features/java:1": { // Java sigue siendo necesario
             "version": "17",
             "installMaven": "false",
             "installGradle": "false"
         },
-        "ghcr.com/devcontainers/features/node:1": {
+        "ghcr.io/devcontainers/features/node:1": { // Node también es común
             "version": "lts"
         }
     },
@@ -24,7 +28,6 @@
             ]
         }
     },
-    // Quitamos el postCreateCommand que fallaba
     "portsAttributes": {
         "3000": {
             "label": "Flutter Web App",
